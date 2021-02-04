@@ -10,6 +10,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
+          <h4>Idea worth spreading!</h4>
           <form @submit.prevent="handleSubmit" autocomplete="off">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">

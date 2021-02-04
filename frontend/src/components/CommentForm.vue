@@ -14,7 +14,13 @@
         </div>
       </div>
       <br />
-      <button type="submit" class="btn btn-primary" id="sendMessageButton">
+      <p v-if="loading">Loading ...</p>
+      <button
+        v-else
+        type="submit"
+        class="btn btn-primary"
+        id="sendMessageButton"
+      >
         Comment
       </button>
     </form>
@@ -31,6 +37,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       comment: {
         body: '',
       },
@@ -39,6 +46,7 @@ export default {
 
   methods: {
     handleSubmit() {
+      this.loading = true;
       // Send data to the server or update your stores and such.
       axios
         .post(`${baseUrl}/comments/`, {
@@ -50,6 +58,7 @@ export default {
           console.log(res.data);
           this.$emit('add:comment', res.data);
           this.comment.body = '';
+          this.loading = false;
         });
     },
   },

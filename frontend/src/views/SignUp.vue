@@ -42,7 +42,10 @@
                     />
                   </div>
 
+                  <p v-if="loading">Loading ....</p>
+
                   <button
+                    v-else
                     type="submit"
                     class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                   >
@@ -56,7 +59,7 @@
                     </p>
                     <p>
                       <router-link to="/" class="font-italic text-muted"
-                        >Or Get Start Reading</router-link
+                        >Or Get Reading</router-link
                       >
                     </p>
                   </div>
@@ -82,6 +85,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       user: {
         username: '',
         email: '',
@@ -92,6 +96,8 @@ export default {
 
   methods: {
     handleSubmit() {
+      this.loading = true;
+
       // Send data to the server or update your stores and such.
       axios
         .post(`${baseUrl}/users/signup`, {
@@ -105,12 +111,14 @@ export default {
           this.reset();
           this.$store.commit('setAuth', res.data);
           this.$router.push({ name: 'PostAdd' });
+          this.loading = true;
         })
         .catch((error) => {
           console.log(error);
           alert(`Please an error occurs. Retry`);
           this.$store.commit('logout');
           this.reset();
+          this.loading = true;
         });
     },
     reset() {

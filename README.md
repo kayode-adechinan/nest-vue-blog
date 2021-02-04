@@ -7,10 +7,12 @@
 This fullstack app is a simple blog platform providing the following features
 
   - User authentication with JWT
+  - Auto loggin after registration
   - Publishing posts
   - Anonymous comments
   - Subscribing to newsletter
   - Sending emails
+  - pagination
 
 
 # Architecture
