@@ -42,7 +42,12 @@
                   <div class="text-center d-flex justify-content-between mt-4">
                     <p>
                       <router-link to="/signup" class="font-italic text-muted"
-                        >Register</router-link
+                        >Or Register</router-link
+                      >
+                    </p>
+                    <p>
+                      <router-link to="/" class="font-italic text-muted"
+                        >Or Get Start Reading</router-link
                       >
                     </p>
                   </div>
@@ -78,24 +83,29 @@ export default {
   methods: {
     handleSubmit() {
       axios
-        .post(`${baseUrl}/signin`, {
+        .post(`${baseUrl}/users/signin`, {
           username: this.user.username,
           password: this.user.password,
         })
         .then((res) => {
           console.log(res);
           console.log(res.data);
-          this.user.username = '';
-          this.user.email = '';
-          this.user.password = '';
+          this.reset();
           this.$store.commit('setAuth', res.data);
           this.$router.push({ name: 'PostAdd' });
         })
         .catch((error) => {
           console.log(error);
           alert(`Please an error occurs. Retry`);
+          this.reset();
           this.$store.commit('logout');
         });
+    },
+
+    reset() {
+      this.user.username = '';
+      this.user.email = '';
+      this.user.password = '';
     },
   },
 };

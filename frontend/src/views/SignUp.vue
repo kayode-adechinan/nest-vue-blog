@@ -54,6 +54,11 @@
                         >Or Sign In</router-link
                       >
                     </p>
+                    <p>
+                      <router-link to="/" class="font-italic text-muted"
+                        >Or Get Start Reading</router-link
+                      >
+                    </p>
                   </div>
                 </form>
               </div>
@@ -89,7 +94,7 @@ export default {
     handleSubmit() {
       // Send data to the server or update your stores and such.
       axios
-        .post(`${baseUrl}/signup`, {
+        .post(`${baseUrl}/users/signup`, {
           username: this.user.username,
           email: this.user.email,
           password: this.user.password,
@@ -97,19 +102,21 @@ export default {
         .then((res) => {
           console.log(res);
           console.log(res.data);
-          this.user.username = '';
-          this.user.email = '';
-          this.user.password = '';
+          this.reset();
           this.$store.commit('setAuth', res.data);
           this.$router.push({ name: 'PostAdd' });
-
-          // this.autoLogin();
         })
         .catch((error) => {
           console.log(error);
           alert(`Please an error occurs. Retry`);
           this.$store.commit('logout');
+          this.reset();
         });
+    },
+    reset() {
+      this.user.username = '';
+      this.user.email = '';
+      this.user.password = '';
     },
   },
 };
