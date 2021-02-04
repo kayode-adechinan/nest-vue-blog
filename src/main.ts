@@ -16,7 +16,7 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe());
 
-  app.enableCors();
+  app.enableCors(); // enable cors
   //await app.listen(3000);
   await app.listen(process.env.PORT || '80');  // Only for heroku
 }
