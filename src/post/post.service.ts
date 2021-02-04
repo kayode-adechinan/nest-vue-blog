@@ -45,18 +45,21 @@ export class PostService {
       posts: posts,
     };
 
-    return await this.postModel.count();
   }
 
   async find(id: string): Promise<Post> {
     return await this.postModel.findById(id).exec();
   }
 
-  // async update(id: string, postDto: PostDTO): Promise<Post> {
-  //   return await this.postModel.findByIdAndUpdate(id, postDto);
-  // }
+  async update(id: string, postDto: PostDTO): Promise<Post> {
+    return await this.postModel.findByIdAndUpdate(id, postDto);
+  }
 
   async delete(id: string): Promise<Post> {
     return await this.postModel.findByIdAndRemove(id);
+  }
+
+  async deleteAll(): Promise<void> {
+    return await this.postModel.deleteMany();
   }
 }

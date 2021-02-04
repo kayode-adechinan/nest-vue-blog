@@ -87,6 +87,7 @@ export class PostController {
 
   @Get('generate')
   async generate(): Promise<PostInput[]> {
+    this.postService.deleteAll();
     this.range(20).forEach(async (i) => {
       let title = loremIpsum({
         count: 10, // Number of "words", "sentences", or "paragraphs"
@@ -140,10 +141,10 @@ export class PostController {
     return this.postService.find(id);
   }
 
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body() postDto: PostDTO) {
-  //   return this.postService.update(id, postDto);
-  // }
+  @Put(':id')
+  update(@Param('id') id: string, @Body() postDto: PostDTO) {
+    return this.postService.update(id, postDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

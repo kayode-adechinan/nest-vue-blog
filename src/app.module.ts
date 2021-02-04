@@ -9,10 +9,8 @@ import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost/nest12'),
-    // MongooseModule.forRoot(
-    //   `mongodb+srv://ade:ade@cluster0.rwagc.mongodb.net/pages?retryWrites=true&w=majority`,
-    // ),
+    //MongooseModule.forRoot('mongodb://localhost/nest12'),
+    MongooseModule.forRoot(process.env.DATATABE),
     UserModule,
     CommentModule,
     NewsletterModule,
