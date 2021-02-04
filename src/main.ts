@@ -17,7 +17,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors();
-  await app.listen(3000);
-  //await app.listen(process.env.PORT || '80');  // Only for heroku
+  //await app.listen(3000);
+  await app.listen(process.env.PORT || '80');  // Only for heroku
 }
 bootstrap();
