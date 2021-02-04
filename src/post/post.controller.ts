@@ -29,13 +29,29 @@ export class PostController {
     private readonly newsLetterService: NewsletterService,
   ) {}
 
+  @Get('me')
+  @UseGuards(JwtAuthGuard)
+  findAllForMe(@Req() req, request: Request): Promise<any> {
+    const { page = 1 } = req.query;
+
+    const { user } = req;
+
+    console.log(user);
+
+    return this.postService.findAll(+page, user);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Body() postDto: PostDTO) {
+  async create(@Req() req, @Body() postDto: PostDTO) {
     // retrieve all the subscribers
     const subscribers = await this.newsLetterService.findAll();
 
-    const newPost = await this.postService.addProduct(postDto);
+    console.log(req.user);
+
+    const { title, body, user = req.user.id } = postDto;
+
+    const newPost = await this.postService.addProduct({ title, body, user });
 
     subscribers.forEach((subscriber) => {
       // prepare new post link
@@ -80,9 +96,9 @@ export class PostController {
 
   @Get()
   findAll(@Req() request: Request): Promise<any> {
-    const { page = 1 } = request.query;
+    const { page = 1, user = null } = request.query;
 
-    return this.postService.findAll(+page);
+    return this.postService.findAll(+page, user);
   }
 
   @Get('generate')
@@ -141,13 +157,15 @@ export class PostController {
     return this.postService.find(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
-  update(@Param('id') id: string, @Body() postDto: PostDTO) {
+  update(@Req() req, @Param('id') id: string, @Body() postDto: PostDTO) {
     return this.postService.update(id, postDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Req() req, @Param('id') id: string) {
     return this.postService.delete(id);
   }
 }

@@ -16,18 +16,21 @@ export class PostService {
     return await newPost.save();
   }
 
-  async findAll(page = 1): Promise<any> {
+  async findAll(page = 1, user=null): Promise<any> {
     // return await this.postModel.find().sort({ updatedAt: -1 });
+
+
+    let query = user ? {user: user.id}: {};
 
     const recordsPerPage = 10;
     const start = (page - 1) * recordsPerPage;
 
-    const count = await this.postModel.count();
+    const count = await this.postModel.count(query);
 
     const totalPages = Math.round(count / recordsPerPage);
 
     const posts = await this.postModel
-      .find()
+      .find(query)
       .sort({ updatedAt: -1 })
       .skip(start)
       .limit(recordsPerPage);

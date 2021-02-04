@@ -1,6 +1,6 @@
 # Demo
 
-- 
+- https://nest-vue-blog.vercel.app/
 
 # Overview
 
@@ -29,11 +29,11 @@ This fullstack app is a simple blog platform providing the following features
 ## Deployment
 
 - Heroku for the backend
-  - Endpoint
+  - Endpoint : https://nest-vue-blog.herokuapp.com
 
 
 - Vercel for the frontend
-  - Url
+  - Url : https://nest-vue-blog.vercel.app/
 
 
 # How to Reproduce
