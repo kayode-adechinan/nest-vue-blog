@@ -29,6 +29,9 @@
           <li v-if="$store.state.accessToken" class="nav-item">
             <a href="#" v-on:click.stop.prevent="logout">Logout</a>
           </li>
+           <li v-if="$store.state.accessToken" class="nav-item">
+            <router-link to="/dashboard">My Posts</router-link>
+          </li>
           <li class="nav-item" v-if="$store.state.accessToken">
             <router-link to="/posts/add">Post</router-link>
           </li>

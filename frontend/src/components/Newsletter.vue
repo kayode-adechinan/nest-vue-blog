@@ -12,8 +12,8 @@
         @submit.prevent="handleSubmit"
         autocomplete="off"
       >
-        <input type="text" placeholder="Username" v-model="user.username" />
-        <input type="email" placeholder="Email" v-model="user.email" />
+        <input type="text" placeholder="Username" required v-model="user.username" />
+        <input type="email" placeholder="Email" required v-model="user.email" />
 
         <p v-if="loading">Please wait...</p>
         <button v-else type="submit">Join</button>

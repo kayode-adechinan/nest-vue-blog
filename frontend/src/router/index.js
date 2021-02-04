@@ -13,6 +13,46 @@ const routes = [
   },
 
   {
+    path: '/dashboard',
+    name: 'Dashboard',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    beforeEnter(to, from, next) {
+      // check vuex store //
+      if (store.state.accessToken) {
+        next();
+      } else {
+        next({
+          name: 'Signin', // back to safety route //
+        });
+      }
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PostBoard.vue'),
+  },
+
+  {
+    path: '/dashboard/edit/:id',
+    name: 'PostEdit',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    beforeEnter(to, from, next) {
+      // check vuex store //
+      if (store.state.accessToken) {
+        next();
+      } else {
+        next({
+          name: 'Signin', // back to safety route //
+        });
+      }
+    },
+    component: () =>
+      import(/* webpackChunkName: "about" */ '../views/PostEdit.vue'),
+  },
+
+  {
     path: '/posts/add',
     name: 'PostAdd',
     // route level code-splitting
