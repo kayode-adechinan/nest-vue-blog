@@ -87,7 +87,7 @@ export class PostController {
 
   @Get('generate')
   async generate(): Promise<PostInput[]> {
-    this.postService.deleteAll();
+    await this.postService.deleteAll();
     this.range(20).forEach(async (i) => {
       let title = loremIpsum({
         count: 10, // Number of "words", "sentences", or "paragraphs"
